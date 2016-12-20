@@ -1,1 +1,1 @@
-nodeclient: bash env.sh && npm start
+nodeclient: chmod +x env.sh && ./env.sh && npm start
