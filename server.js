@@ -34,15 +34,16 @@ consumer.init().then(function() {
   return consumer.subscribe(process.env.KAFKA_TOPIC, [0], function(messageSet, topic, partition) {
     messageSet.forEach(function(m) {
       var data = JSON.parse(m.message.value.toString('utf8'));
-      wss.clients.forEach(client) => {
+      wss.clients.forEach((client) => {
         client.send('Message Set - Offset['+m.offset+'] messageSize ['+m.messageSize+']kb - DATA \n'+JSON.stringify(data));
-      }
+      });
     });  
   });
 });
-
+/*
 setInterval(() => {
   wss.clients.forEach((client) => {
     client.send(new Date().toTimeString());
   });
 }, 1000);
+*/
