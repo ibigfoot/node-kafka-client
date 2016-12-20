@@ -1,21 +1,34 @@
-<html>
-  <body>
-    <h1>Kafka Topic Stream</h1>
-    <p id='server-time'></p>
-    <script>
-      var HOST = location.origin.replace(/^http/, 'ws')
-      var ws = new WebSocket(HOST);
-      var el = document.getElementById('server-time');
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="x-ua-compatible" content="ie=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" type="text/css" href="public/styles/salesforce-lightning-design-system.css"/>
+		<style>
 
-      ws.onmessage = function (event) {
-
-        var node = document.createElement("P");
-        var text = document.createTextNode(event.data);
-        node.appendChild(text);
-        el.appendChild(node);
-        
-        el = node;
-      };
-    </script>
-  </body>
+		</style>	
+	</head>
+	<body>
+		
+		<div class="slds-text-heading--large slds-align--absolute-center">Kafka Topic Stream</div>
+		<p id='server-time'></p>
+		<script id="message-template" type="text/x-handlebars-template">
+			<div class="slds-box">
+				{{data}}
+			</div>
+		</script>
+		<script>
+			var HOST = location.origin.replace(/^http/, 'ws')
+			var ws = new WebSocket(HOST);
+			var el = document.getElementById('server-time');
+			ws.onmessage = function (event) {
+				var node = document.createElement("P");
+				var text = document.createTextNode(event.data);
+				node.appendChild(text);
+				el.appendChild(node);
+				el = node;
+			};
+		</script>
+	</body>
 </html>
