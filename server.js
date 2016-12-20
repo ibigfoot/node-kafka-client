@@ -9,8 +9,10 @@ const PORT = process.env.PORT || 3000;
 const INDEX = path.join(__dirname, 'index.html');
 
 const server = express()
+  .use(express.static('public'))
   .use((req, res) => res.sendFile(INDEX) )
   .listen(PORT, () => console.log(`Listening on ${ PORT }`));
+
 
 const wss = new SocketServer({ server });
 
@@ -34,15 +36,12 @@ consumer.init().then(function() {
     messageSet.forEach(function(m) {
       var data = JSON.parse(m.message.value.toString('utf8'));
       wss.clients.forEach((client) => {
-        client.send('Message Set - Offset['+m.offset+'] messageSize ['+m.messageSize+']kb - DATA \n'+JSON.stringify(data));
+        var packet = {};
+        packet.offset = m.offset;
+        packet.messageSize = m.messageSize;
+        packet.data = data;
+        client.send(JSON.stringify(packet));
       });
     });  
   });
 });
-/*
-setInterval(() => {
-  wss.clients.forEach((client) => {
-    client.send(new Date().toTimeString());
-  });
-}, 1000);
-*/
