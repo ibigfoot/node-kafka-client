@@ -30,6 +30,9 @@ var consumer = new Kafka.SimpleConsumer({
 });
 
 
+
+
+
 consumer.init().then(function() {
   return consumer.subscribe(process.env.KAFKA_TOPIC, [0], function(messageSet, topic, partition) {
     messageSet.forEach(function(m) {
