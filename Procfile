@@ -1,1 +1,1 @@
-nodeclient: ./env.sh && npm start
+nodeclient: bash env.sh && npm start
