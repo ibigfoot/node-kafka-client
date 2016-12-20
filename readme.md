@@ -1,7 +1,12 @@
-# Node.js WebSocket Example
+# Node.js Kafka Client
 
-This example accompanies the
-[Using WebSockets on Heroku with Node.js](https://devcenter.heroku.com/articles/node-websockets)
-tutorial.
+The goal of this client is to give a visualisation of messages on a kafka topic. 
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
+Deploy to Heroku
+
+[![Deploy on Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
+
+Once deployed, attach your Kafka addon
+
+heroku addons:attach KAFKA_ADDON_ID -a CLIENT_APP_NAME
+
