@@ -1,5 +1,6 @@
 <html>
   <body>
+    <h1>Kafka Topic Stream</h1>
     <p id='server-time'></p>
     <script>
       var HOST = location.origin.replace(/^http/, 'ws')
@@ -7,7 +8,13 @@
       var el = document.getElementById('server-time');
 
       ws.onmessage = function (event) {
-        el.innerHTML = 'Server time: ' + event.data;
+
+        var node = document.createElement("P");
+        var text = document.createTextNode(event.data);
+        node.appendChild(text);
+        el.appendChild(node);
+        
+        el = node;
       };
     </script>
   </body>

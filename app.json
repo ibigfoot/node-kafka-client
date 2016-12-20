@@ -1,6 +1,6 @@
 {
-  "name": "Node.js WebSocket Example",
-  "description": "Part of the Using WebSockets on Heroku Tutorial",
+  "name": "Kafka Consumer",
+  "description": "Node client uses websockets to monitor a Kafka Topic",
   "repository": "https://github.com/heroku-examples/node-websockets",
-  "keywords": ["node", "websocket"]
+  "keywords": ["node", "websocket", "kafka", "consumer"]
 }
