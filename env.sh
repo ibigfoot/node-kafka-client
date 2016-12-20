@@ -25,6 +25,8 @@ if [[ -z "${KAFKA_URL}" ]]; then
     exit 1
 fi
 
+echo '$KAFKA_CLIENT_CERT'
+
 # Setup cert and cert key
 rm -f client.crt client.key
 echo -n "$KAFKA_CLIENT_CERT" > client.crt
