@@ -37,11 +37,11 @@ io.on('connection', function(client) {
     });
 });
 
+var count = 0;
+var messageBuffer = [];
+
 var dataHandler = function(messageSet, topic, partition) {
     
-    var count = 0;
-    var messageBuffer = [];
-
     messageSet.forEach(function(m) {
         count++;
         console.log("Count is "+count);
