@@ -37,9 +37,6 @@ io.on('connection', function(client) {
     });
 });
 
-var count = 0;
-var messageBuffer = [];
-
 var dataHandler = function(messageSet, topic, partition) {
     
     messageSet.forEach(function(m) {
@@ -54,10 +51,8 @@ var dataHandler = function(messageSet, topic, partition) {
         messageBuffer.push(packet);
         io.emit('message', JSON.stringify(packet));
         // batch 100 records and push to salesforce
-        if(count % 10 == 0 ) {
-            salesforce.update(messageBuffer);
-            messageBuffer = [];
-        }
+        salesforce.update(packet);
+
     });
 }
 

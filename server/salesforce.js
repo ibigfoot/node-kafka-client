@@ -30,19 +30,16 @@ let login = (callback) => {
     });
 };
 
-let update = function(messages) {
+let update = function(packet) {
 
-    console.log("We have ["+messages.length+"] messages " );
-    var messageList = [];
-    for (var i in messages ) {
-        var m = messages[i];
-        var sfMessage = nforce.createSObject('Favorite__c');
-        sfMessage.set('OwnerId', 'OwnerId',m.userId);
-        sfMessage.set('Property__c', m.propertyId);
-        sfMessage.set('User__c', m.userId);
-        messageList.push(m)
-    }
-    org.insert({ sobject: messageList}, function(err, response) {
+    console.log("We have a packet "+packet)
+
+    var sfMessage = nforce.createSObject('Favorite__c');
+    sfMessage.set('OwnerId', 'OwnerId',packet.userId);
+    sfMessage.set('Property__c', packet.propertyId);
+    sfMessage.set('User__c', packet.userId);
+     
+    org.insert({ sobject: sfMessage}, function(err, response) {
         if (err) {
             console.log(err)
         } else {
