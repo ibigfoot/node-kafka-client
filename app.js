@@ -54,10 +54,7 @@ var dataHandler = function(messageSet, topic, partition) {
         io.emit('message', JSON.stringify(packet));
         // batch 100 records and push to salesforce
         if(count % 100 == 0 ) {
-            salesforce.update(messageBuffer).then(function() {
-                console.log("finished updating")
-                messageBuffer = [];
-            }) 
+            salesforce.update(messageBuffer);
         }
     });
 }

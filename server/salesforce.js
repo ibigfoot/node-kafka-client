@@ -30,25 +30,26 @@ let login = (callback) => {
     });
 };
 
-let update = (messages) => {
-    return new Promise((resolve, reject) => {
-        var messageList = [];
-        for (var i in messages ) {
-            var m = messages[i];
-            var sfMessage = nforce.createSObject('Favourite__c');
-            sfMessage.set('OwnerId', 'OwnerId',m.userId);
-            sfMessage.set('Property__c', m.propertyId);
-            sfMessage.set('User__c', m.userId);
-            messageList.push(m)
+let update = function(messages) {
+
+    console.log("We have ["+messages.size()+"] messages " );
+    var messageList = [];
+    for (var i in messages ) {
+        var m = messages[i];
+        var sfMessage = nforce.createSObject('Favourite__c');
+        sfMessage.set('OwnerId', 'OwnerId',m.userId);
+        sfMessage.set('Property__c', m.propertyId);
+        sfMessage.set('User__c', m.userId);
+        messageList.push(m)
+    }
+    org.insert({ sobject: messageList}, function(err, response) {
+        if (err) {
+            console.log(err)
+        } else {
+            console.log(JSON.stringify(response))
         }
-        org.insert({ sobject: messageList}, function(err, response) {
-            if (err) {
-                console.log(err)
-            } else {
-                console.log(JSON.stringify(response))
-            }
-        });
     });
+
 };
 
 //{"userId":"00528000005nRRpAAM","propertyId":"a032800000LxhVSAAZ","eventType":"appointment","date":1485353220024}
