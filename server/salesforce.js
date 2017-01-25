@@ -39,6 +39,8 @@ let update = function(packet) {
     sfMessage.set('Property__c', packet.propertyId);
     sfMessage.set('User__c', packet.userId);
      
+    console.log("We have an SF Object ["+JSON.stringify(sfMessage)+"]");
+
     org.insert({ sobject: sfMessage}, function(err, response) {
         if (err) {
             console.log(err)
