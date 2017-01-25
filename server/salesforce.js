@@ -32,7 +32,7 @@ let login = (callback) => {
 
 let update = function(messages) {
 
-    console.log("We have ["+messages.size()+"] messages " );
+    console.log("We have ["+messages.length+"] messages " );
     var messageList = [];
     for (var i in messages ) {
         var m = messages[i];
