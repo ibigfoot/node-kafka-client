@@ -47,7 +47,7 @@ var dataHandler = function(messageSet, topic, partition) {
         packet.offset = m.offset;
         packet.messageSize = m.messageSize;
         packet.data = data;
-        messageBuffer.push(packet);
+
         io.emit('message', JSON.stringify(packet));
 
         salesforce.update(packet);
