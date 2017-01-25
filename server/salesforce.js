@@ -35,7 +35,7 @@ let update = function(packet) {
     console.log("We have a packet "+packet)
 
     var sfMessage = nforce.createSObject('Favorite__c');
-    sfMessage.set('OwnerId', 'OwnerId',packet.userId);
+    sfMessage.set('OwnerId', packet.userId);
     sfMessage.set('Property__c', packet.propertyId);
     sfMessage.set('User__c', packet.userId);
      
