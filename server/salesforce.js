@@ -32,7 +32,7 @@ let login = (callback) => {
 
 let update = function(packet) {
 
-    console.log("We have a packet "+packet)
+    console.log("We have a packet "+JSON.stringify(packet))
 
     var sfMessage = nforce.createSObject('Favorite__c');
     sfMessage.set('OwnerId', "'"+packet.userId+"'");
