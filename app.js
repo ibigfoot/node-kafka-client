@@ -44,6 +44,7 @@ var dataHandler = function(messageSet, topic, partition) {
 
     messageSet.forEach(function(m) {
         count++;
+        console.log("Count is "+count);
         var data = JSON.parse(m.message.value.toString('utf8'));
         console.log('received - '+m.offset);
         var packet = {};
