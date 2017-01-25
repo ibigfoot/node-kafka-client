@@ -35,9 +35,9 @@ let update = function(packet) {
     console.log("We have a packet "+JSON.stringify(packet))
 
     var sfMessage = nforce.createSObject('Favorite__c');
-    sfMessage.set('OwnerId', "'"+packet.data.userId+"'");
-    sfMessage.set('Property__c', "'"+packet.data.propertyId+"'");
-    sfMessage.set('User__c', "'"+packet.data.userId+"'");
+    sfMessage.set('OwnerId', packet.data.userId);
+    sfMessage.set('Property__c', packet.data.propertyId);
+    sfMessage.set('User__c', packet.data.userId);
      
     console.log("We have an SF Object ["+JSON.stringify(sfMessage)+"]");
 
