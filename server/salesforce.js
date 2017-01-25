@@ -36,7 +36,7 @@ let update = function(messages) {
     var messageList = [];
     for (var i in messages ) {
         var m = messages[i];
-        var sfMessage = nforce.createSObject('Favourite__c');
+        var sfMessage = nforce.createSObject('Favorite__c');
         sfMessage.set('OwnerId', 'OwnerId',m.userId);
         sfMessage.set('Property__c', m.propertyId);
         sfMessage.set('User__c', m.userId);
