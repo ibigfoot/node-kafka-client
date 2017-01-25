@@ -37,25 +37,42 @@ io.on('connection', function(client) {
 });
 
 var dataHandler = function(messageSet, topic, partition) {
+    
+    var count = 0;
+    var messageBuffer = [];
+
     messageSet.forEach(function(m) {
-        
+        count++;
         var data = JSON.parse(m.message.value.toString('utf8'));
         console.log('received - '+m.offset);
         var packet = {};
         packet.offset = m.offset;
         packet.messageSize = m.messageSize;
         packet.data = data;
-
+        messageBuffer.push(packet);
         io.emit('message', JSON.stringify(packet));
+        // batch 100 records and push to salesforce
+        if(count % 100 == 0 ) {
+            salesforce.update(messageBuffer).then(function() {
+                console.log("finished updating")
+                messageBuffer = [];
+            }) 
+        }
     });
 }
 
 /*
     emit to all clients when a kafka message is received
 */
-consumer.init().then(function() {
-  return consumer.subscribe(process.env.KAFKA_TOPIC, dataHandler);
-});
+
+salesforce.login().
+    then(() => {
+        consumer.init().then(function() {
+            return consumer.subscribe(process.env.KAFKA_TOPIC, dataHandler);
+        });   
+    });
+
+
 
 /*
     Webserver setup
