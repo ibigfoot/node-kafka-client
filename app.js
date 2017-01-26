@@ -8,6 +8,7 @@ var app = express();
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 var bodyParser = require('body-parser');
+var salesforce = require('./server/salesforce');
 
 /*
     KAFKA SETUP
@@ -37,8 +38,9 @@ io.on('connection', function(client) {
 });
 
 var dataHandler = function(messageSet, topic, partition) {
+    
     messageSet.forEach(function(m) {
-        
+
         var data = JSON.parse(m.message.value.toString('utf8'));
         console.log('received - '+m.offset);
         var packet = {};
@@ -47,15 +49,24 @@ var dataHandler = function(messageSet, topic, partition) {
         packet.data = data;
 
         io.emit('message', JSON.stringify(packet));
+
+        salesforce.update(packet);
+
     });
 }
 
 /*
     emit to all clients when a kafka message is received
 */
-consumer.init().then(function() {
-  return consumer.subscribe(process.env.KAFKA_TOPIC, dataHandler);
-});
+
+salesforce.login().
+    then(() => {
+        consumer.init().then(function() {
+            return consumer.subscribe(process.env.KAFKA_TOPIC, dataHandler);
+        });   
+    });
+
+
 
 /*
     Webserver setup
